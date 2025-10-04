@@ -2,14 +2,14 @@
 
 ## 1️⃣ Project Overview
 
-This project is an **automated testing suite** for the [nopCommerce demo website](https://demo.nopcommerce.com/).
-The automation covers key functionalities such as:
+This project is a **comprehensive automated testing suite** for the [nopCommerce demo website](https://demo.nopcommerce.com/).
+It validates critical functionalities such as:
 
-* Selecting random categories and subcategories
+* Random selection of categories and subcategories
 * Newsletter subscription using **database-driven data**
-* Product comparison features
+* Product comparison and verification
 
-The project leverages **Selenium WebDriver** for browser automation and **TestNG** for test management.
+The project leverages **Selenium WebDriver** for browser automation, **TestNG** for test management, and **MongoDB** for test data.
 
 ---
 
@@ -18,9 +18,9 @@ The project leverages **Selenium WebDriver** for browser automation and **TestNG
 * **Java 24** – programming language
 * **Selenium WebDriver 4.35** – browser automation
 * **TestNG** – testing framework
-* **Maven** – dependency and project management
-* **MongoDB** – database for storing test data (emails)
-* **BrowserFactory** – Chrome, Edge and Firefox browser  automation
+* **Maven** – project and dependency management
+* **MongoDB** – database for storing test data
+* **BrowserFactory** – supports Chrome, Edge, and Firefox automation
 
 ---
 
@@ -32,9 +32,9 @@ NopCommerce-Automation/
 ├─ src/test/java/pages                 --> Page Object classes (e.g., NewsletterPage.java, CompareProductPage.java)
 ├─ src/test/java/base                  --> BaseTest class
 ├─ src/test/java/dataProviders         --> DataProviders class
-├─ src/test/java/tests                 --> Test classes and scenarios classes (e.g., NewsletterTest.java)
+├─ src/test/java/tests                 --> Test and scenario classes (e.g., NewsletterTest.java)
 ├─ src/main/resources/                 --> Configuration files, database scripts
-├─ src/test/java/utils/BrowserFactory  --> implement Factory and Singleton Design Pattern 
+├─ src/test/java/utils/BrowserFactory  --> Implements Factory and Singleton Design Pattern 
 ├─ pom.xml                             --> Maven dependencies
 └─ README.md                           --> Project documentation
 ```
@@ -48,7 +48,7 @@ NopCommerce-Automation/
 The project uses a **MongoDB database** named `final_project` with a collection `login_data`:
 
 ```json
-// Example document in MongoDB
+// Example document
 {
   "_id":{"$oid":"68e07c2f586e4df9b692d5a3"},
   "gender":"Male",
@@ -57,35 +57,34 @@ The project uses a **MongoDB database** named `final_project` with a collection 
   "email":"hosdddnee@gmail.com",
   "companyName":"NTI",
   "newLetters":"True",
-  "passowrd":"123456",
+  "password":"123456",
   "confirmPassword":"123456"
 }
 ```
 
 ### 4.2 Connecting to MongoDB
 
-Update your connection settings in `MongoDBConnection.java`:
+In `MongoDBConnection.java`:
 
 ```java
-MongoClient mongoClient = MongoClients.create("xxxxxxxx");
-MongoDatabase database = mongoClient.getDatabase("xxxxxxx");
-MongoCollection<Document> subscribersCollection = database.getCollection("xxxxxxx");
+MongoClient mongoClient = MongoClients.create("mongodb://yourMongoDBConnectionString");
+MongoDatabase database = mongoClient.getDatabase("final_project");
+MongoCollection<Document> loginCollection = database.getCollection("login_data");
 ```
 
 ---
 
 ## 5️⃣ Using DataProvider in Tests
 
-We use **TestNG DataProvider** to fetch data from MongoDB:
+**TestNG DataProvider** fetches data from MongoDB:
 
 ```java
 @DataProvider(name = "loginData")
-    public Object[][] getValidLoginData() {
-        MongoDBTestListener mongoDBTestListener = new MongoDBTestListener();
-        return mongoDBTestListener.getTwoDArray("login_data");
-    }
+public Object[][] getValidLoginData() {
+    MongoDBTestListener mongoDBTestListener = new MongoDBTestListener();
+    return mongoDBTestListener.getTwoDArray("login_data");
+}
 ```
-
 
 ---
 
@@ -98,18 +97,18 @@ git clone https://github.com/yourusername/NopCommerce-Automation.git
 ```
 
 2. **Open in IntelliJ IDEA** (or any Java IDE).
-3. **Ensure MongoDB is running** and the database is populated with test data.
+3. **Ensure MongoDB is running** and the database has test data.
 4. **Run tests via Maven:**
 
 ```bash
 mvn test
 ```
 
-5. **Notes:**
+**Notes:**
 
-   * Tests run on Chrome browser.
-   * `WebDriverWait` is used for dynamic elements.
-   * Scroll or explicit waits are used if clicks are intercepted.
+* Tests run on multiple browsers through BrowserFactory.
+* `WebDriverWait` handles dynamic elements.
+* Scroll or explicit waits for intercepted clicks.
 
 ---
 
@@ -118,7 +117,7 @@ mvn test
 | Feature                   | Description                                                     |
 | ------------------------- | --------------------------------------------------------------- |
 | Random Category Selection | Randomly selects a category and subcategory and navigates to it |
-| Newsletter Subscription   | Subscribes users using emails from MongoDB                      |
+| Newsletter Subscription   | Subscribes users using data from MongoDB                        |
 | Product Comparison        | Adds products to compare and verifies the comparison page       |
 | Database-Driven Tests     | Feeds test data from MongoDB using TestNG DataProvider          |
 
@@ -143,10 +142,10 @@ wait.until(ExpectedConditions.elementToBeClickable(element)).click();
 
 ## 9️⃣ Known Issues / Notes
 
-* Click interception may occur if elements overlap; use scroll or explicit waits.
-* Ensure ChromeDriver version matches your browser.
-* MongoDB must be running and correctly configured.
-* Stale elements may appear after page updates; relocate elements after navigation.
+* Click interception may occur if elements overlap.
+* Ensure ChromeDriver matches your browser version.
+* MongoDB must be running and properly configured.
+* Stale elements may appear; relocate elements after page updates.
 
 ---
 
@@ -154,15 +153,6 @@ wait.until(ExpectedConditions.elementToBeClickable(element)).click();
 
 * For questions: **[hosnee.kh@gmail.com](mailto:hosnee.kh@gmail.com)**
 * Project Author: **Hosnee Khaled**
-
----
-
-## 1️⃣1️⃣ Optional Enhancements
-
-* Deploy MongoDB to a free online server for shared access.
-* Fully implement **Page Object Model (POM)** for better maintainability.
-* Capture **screenshots on test failure** using Selenium `TakesScreenshot`.
-* Integrate **GitHub Actions** for automated test execution.
 
 ---
 
