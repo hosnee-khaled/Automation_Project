@@ -67,9 +67,9 @@ The project uses a **MongoDB database** named `final_project` with a collection 
 Update your connection settings in `MongoDBConnection.java`:
 
 ```java
-MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
-MongoDatabase database = mongoClient.getDatabase("nopcommerce");
-MongoCollection<Document> subscribersCollection = database.getCollection("subscribers");
+MongoClient mongoClient = MongoClients.create("xxxxxxxx");
+MongoDatabase database = mongoClient.getDatabase("xxxxxxx");
+MongoCollection<Document> subscribersCollection = database.getCollection("xxxxxxx");
 ```
 
 ---
