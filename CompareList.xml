@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="CompareSuite" parallel="false">
+    <test name="AddToCompareTestSuite">
+        <classes>
+            <class name="tests.scenarios.CompareProductsTest"/>
+        </classes>
+    </test>
+</suite>

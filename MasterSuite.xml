@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="MasterSuite">
+    <suite-files>
+        <suite-file path="RegisterSuite.xml"/>
+        <suite-file path="LoginSuite.xml"/>
+        <suite-file path="EndToEndTest.xml"/>
+        <suite-file path="WishListSuite.xml"/>
+        <suite-file path="CompareList.xml"/>
+        <suite-file path="NewsletterSubscriptionSuite.xml"/>
+    </suite-files>
+</suite>
