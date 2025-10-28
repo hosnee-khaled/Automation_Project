@@ -19,8 +19,8 @@ public class MongoDBTestListener {
     FindIterable<Document> docs;
 
     public void onStart(String collectionName) {
-        mongoClient = MongoClients.create("mongodb+srv://hosneykhaledhosney_db_user:nti123Q@cluster0.gdtfgog.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
-        MongoDatabase database = mongoClient.getDatabase("final_project");
+        mongoClient = MongoClients.create("mongodb+srv://DATABASE_USERNAME:DATABASE_PASSWORD@cluster0.gdtfgog.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
         collection = database.getCollection(collectionName);
 
         // Fetch documents
